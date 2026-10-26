@@ -1,0 +1,12 @@
+# バッファサイズは搭載メモリに合わせて調整する。レギュレーションで許される範囲かも確認する
+[mysqld]
+skip-log-bin
+innodb_buffer_pool_size = 1G
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method = O_DIRECT
+innodb_doublewrite = 0
+max_connections = 1000
+# MySQL 8.0.30以降。それ以前は innodb_log_file_size を使う
+innodb_redo_log_capacity = 1G
+# 外部ホストからDBへ接続する場合(DB分離時)
+# bind-address = 0.0.0.0

@@ -1,0 +1,5 @@
+isu.env
+.DS_Store
+worktrees/
+results/*
+!results/.gitkeep

@@ -1,0 +1,5 @@
+# 計測フェーズ用。提出前に必ず無効化する(long_query_time=0は全クエリを記録して遅くなる)
+[mysqld]
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/mysql-slow.log
+long_query_time = 0

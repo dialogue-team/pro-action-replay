@@ -1,0 +1,8 @@
+# alp ltsv -c configs/alp/alp.yml で利用。matching_groupsは題材ごとに書き換える
+sort: sum
+reverse: true
+output: count,method,uri,min,avg,p99,max,sum
+matching_groups:
+  - ^/posts/[0-9]+
+  - ^/@\w+
+  - ^/image/[0-9]+
