@@ -7,7 +7,7 @@
 make wt NAME=index-comments      # work/<自分>/index-comments ブランチと専用ディレクトリを作る
 ```
 - 1つの作業コピーを複数人で共有しない
-- 作業したらコミットしてoriginへpushする。未pushのコミットはデプロイを拒否される
+- 作業したらコミットする。複数人で共有するなら、originへpushする(ISU_REQUIRE_PUSHED=1の既定では未pushのコミットはデプロイを拒否される)
 
 ## 2. 担当領域を宣言する(ファイル単位の衝突回避)
 - 着手前にdocs/claims.mdへ「誰が・どのファイル/エンドポイント/テーブルを触るか」を1行追記してpushする
@@ -20,7 +20,7 @@ make try REF=work/alice/index-comments LABEL=comments-index
 ```
 一連の処理が1コマンドで行われる。
 1. リース取得(他人が使用中なら待機。最大30分)
-2. 指定コミットを全台へデプロイ(ビルド、設定反映、再起動)
+2. 指定コミットを`git archive`で取り出し、rsyncで全台へ配る(サーバー側にgitは不要)。ビルド、設定反映、再起動まで行う
 3. ベンチ実行
 4. alpとpt-query-digestの集計を保存
 5. リース解放(異常終了でも解放される)

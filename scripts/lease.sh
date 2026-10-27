@@ -5,7 +5,7 @@ source "$(dirname "$0")/lib.sh"
 LOCK_DIR="/tmp/isu-lease"
 cmd="${1:-status}"; purpose="${2:-bench}"
 
-remote() { ssh_run "$ISU_BENCH_HOST" bash -s -- "$@"; }
+remote() { ssh_bash "$ISU_BENCH_HOST" "$@"; }
 
 case "$cmd" in
   acquire)
