@@ -6,9 +6,9 @@ RUN="$(date +%Y%m%d-%H%M%S)-${ISU_WHO}-${SHA:0:7}"
 OUT="$KIT_ROOT/results/$RUN"; mkdir -p "$OUT"
 # ベンチ前に前回ログを退避して初期化
 for h in $ISU_HOSTS; do
-  ssh_run "$h" "sudo truncate -s 0 $ISU_NGINX_LOG 2>/dev/null || true" &
+  ssh_run "$h" "sudo truncate -c -s 0 $ISU_NGINX_LOG 2>/dev/null || true" &
 done
-ssh_run "$ISU_DB_HOST" "sudo truncate -s 0 $ISU_SLOW_LOG 2>/dev/null || true" || true
+ssh_run "$ISU_DB_HOST" "sudo truncate -c -s 0 $ISU_SLOW_LOG 2>/dev/null || true" || true
 wait
 ssh_run "$ISU_BENCH_HOST" "$ISU_BENCH_CMD" 2>&1 | tee "$OUT/bench.log" >&2 || true
 # 結果の取り出し: JSONの行があればそれを使い、なければログ行から取る

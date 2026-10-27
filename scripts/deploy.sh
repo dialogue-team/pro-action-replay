@@ -28,13 +28,14 @@ deploy_one() {
   if [ -d "$STAGE/conf" ]; then
     rsync -rlpt --delete -e "$RSH" "$STAGE/conf/" "$h:/tmp/isu-conf/"
   fi
-  ssh_bash "$h" "$h" "$ISU_REMOTE_DIR" "$OWNER" "$ISU_BUILD_CMD" "$ISU_APP_UNITS" "$changed" <<'REMOTE'
+  ssh_bash "$h" "$h" "$ISU_REMOTE_DIR" "$OWNER" "$ISU_BUILD_CMD" "$ISU_APP_UNITS" "$changed" "${ISU_POST_BUILD_CMD:-}" <<'REMOTE'
 set -euo pipefail
-host="$1"; dir="$2"; owner="$3"; build="$4"; units="$5"; changed="$6"
+host="$1"; dir="$2"; owner="$3"; build="$4"; units="$5"; changed="$6"; post="${7:-}"
 for d in common "$host"; do
   [ -d "/tmp/isu-conf/$d" ] && sudo rsync -rlpt "/tmp/isu-conf/$d"/ /
 done
 sudo -iu "$owner" bash -c "cd '$dir' && $build"
+if [ -n "$post" ]; then sudo -iu "$owner" bash -c "cd '$dir' && $post"; fi
 if echo "$changed" | grep -q 'mysql'; then sudo systemctl restart mysql; fi
 if echo "$changed" | grep -q 'nginx'; then sudo nginx -t && sudo systemctl reload nginx; fi
 for u in $units; do sudo systemctl restart "$u"; done

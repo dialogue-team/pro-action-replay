@@ -5,7 +5,7 @@ ISUCON向けの、TIPS集、すぐ使える構成集、複数人で衝突しな�
 ## 使い方
 1. `cp isu.env.example isu.env`して、対象のホストやコマンドを埋める
 2. `make bootstrap`で計測ツールを導入する
-3. [docs/first-30min.md](docs/first-30min.md)に沿って初動を行う
+3. [docs/first-30min.md](docs/first-30min.md)に沿って初動を行う。改善の1周の回し方は[docs/improvement-loop.md](docs/improvement-loop.md)
 4. 改善は[docs/tips/](docs/tips/)と[configs/](configs/)、[topologies/](topologies/)から選ぶ
 5. 検証は必ず`make try REF=<ブランチ> LABEL=<目的>`で行う。仕組みは[docs/workflow.md](docs/workflow.md)
 
@@ -15,6 +15,7 @@ ISUCON向けの、TIPS集、すぐ使える構成集、複数人で衝突しな�
 | docs/ | 初動チェックリスト、TIPS、同時作業ルール、参考資料 |
 | configs/ | nginx、MySQL、sysctl、systemd、alpの設定断片 |
 | topologies/ | 1台、2台、3台構成の手順 |
+| examples/ | 題材別の設定例(ISUCON13の練習環境) |
 | scripts/ | リース、デプロイ、ベンチ、集計、worktree作成 |
 | results/ | 試行ごとの結果(git管理外。ledger.tsvに履歴) |
 | local/ | チーム非公開のメモ(git管理外) |
