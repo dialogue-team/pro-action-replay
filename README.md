@@ -17,6 +17,10 @@ ISUCON向けの、TIPS集、すぐ使える構成集、複数人で衝突しな�
 | topologies/ | 1台、2台、3台構成の手順 |
 | scripts/ | リース、デプロイ、ベンチ、集計、worktree作成 |
 | results/ | 試行ごとの結果(git管理外。ledger.tsvに履歴) |
+| local/ | チーム非公開のメモ(git管理外) |
+
+## 公開前
+`make audit`で秘密情報や個人情報の混入を確認する。`make hooks`でpush前に自動実行する。
 
 ## 検証済みの範囲
 - scripts/lease.shは、ssh代替を使ったローカル模擬で、排他、TTL超過の奪取、所有者以外の解放の無視、解放を確認した

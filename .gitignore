@@ -1,5 +1,10 @@
+# 非公開の作業物。公開リポジトリには入れない
 isu.env
-.DS_Store
+.env
+*.pem
+*.key
+local/
 worktrees/
 results/*
 !results/.gitkeep
+.DS_Store

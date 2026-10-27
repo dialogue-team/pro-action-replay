@@ -16,16 +16,16 @@
 private-isuでは、これで画像取得の平均が0.040秒から0.003秒になった記録がある。アイコンの投稿時にもファイルを更新する実装を忘れない。
 
 ```nginx
-location ~ ^/api/user/([-a-z0-9]+)/icon$ {
-  root /home/isucon/webapp/public/;
-  try_files /image/$1.jpeg @proxy_to_app;
+# アイコンの例。パスと拡張子は題材に合わせて変える
+location ~ ^/icon/([a-z0-9_-]+)$ {
+  root /home/isucon/app/public;
+  try_files /icons/$1.jpeg @app;
 }
-location @proxy_to_app {
+location @app {
   proxy_set_header Host $host;
-  proxy_pass http://localhost:8080;
+  proxy_pass http://app;
 }
 ```
-(ISUCON13参加記からの引用。パスは題材に合わせて変える)
 
 ## 落とし穴
 - 「静的ファイルが正しくありません」のような整合性チェックの失敗は、書き出し先ディレクトリの権限(nginxのユーザーが読めるか、アプリが書けるか)を疑う

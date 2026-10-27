@@ -1,4 +1,4 @@
-.PHONY: help bootstrap try lease-status lease-release wt deploy
+.PHONY: help bootstrap try lease-status lease-release wt deploy audit hooks
 REF ?= HEAD
 LABEL ?= $(REF)
 
@@ -8,6 +8,8 @@ help:
 	@echo "make lease-status              検証環境の使用状況"
 	@echo "make lease-release             自分のリースを解放"
 	@echo "make wt NAME=..                作業用worktree作成"
+	@echo "make audit                     公開前チェック"
+	@echo "make hooks                     push前に自動でauditを実行"
 bootstrap:
 	scripts/bootstrap.sh
 try:
@@ -18,3 +20,7 @@ lease-release:
 	scripts/lease.sh release
 wt:
 	scripts/worktree.sh $(NAME) $(BASE)
+audit:
+	scripts/audit-public.sh
+hooks:
+	git config core.hooksPath .githooks
