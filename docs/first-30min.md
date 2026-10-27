@@ -7,7 +7,13 @@
 2. アプリをgit管理下に置き、originへpushする(コードと設定をどちらも)
 3. `scripts/lease.sh status`で環境が空いているか確認する習慣をつける
 
-## 担当A: 計測基盤
+## 担当A: make tryの環境適合(最優先)
+1. `isu.env`を本番の値で作る(ホスト、ユーザー、鍵、アプリの配置先、ビルド、再起動unit、所有者)
+2. ベンチの起動コマンドと、スコアとpassの取り出し方(`ISU_SCORE_REGEX`、`ISU_PASS_GREP`)を合わせる。ポータル経由でしか回せない場合は、ベンチ部分を手動入力にして、デプロイと集計だけ使う
+3. `make try REF=origin/main LABEL=baseline`が最後まで通ることを確認する。通るまで、他の担当はこのコマンドを使わない
+4. 通ったら、`isu.env`をチームに共有する(秘密情報は含めない)
+
+## 担当A2: 計測基盤
 1. `make bootstrap`でalpとpt-query-digestを全台へ導入
 2. configs/nginx/00-ltsv-log.confとconfigs/mysql/10-slowlog.cnfをconf/commonへ入れてコミット
 3. 再デプロイしてベンチを回し、alp/slow.txtが出ることを確認する
