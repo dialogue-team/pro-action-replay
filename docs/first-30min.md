@@ -16,7 +16,12 @@
 6. configs/nginx/00-ltsv-log.confとconfigs/mysql/10-slowlog.cnfをconf/commonへ入れてコミット
 7. 再デプロイしてベンチを回し、alp/slow.txtが出ることを確認する
 
+## 事前に決めておくこと
+- 構成図、調査メモ、仮説、担当表の置き場(GitHub issueに置くなら、テンプレートとラベルを事前に作る)
+- 言語はGoと決まっているなら、[pprof](tips/go-pprof.md)を担当Bが最初に入れる
+
 ## 担当B: アプリ把握
+0. [pprof](tips/go-pprof.md)を組み込み、ベンチ中にCPUプロファイルを取れるようにする
 1. ルーティング一覧とSQLを洗い出す(どのエンドポイントがどのテーブルを触るか)
 2. 外部コマンド呼び出し、ハッシュ計算、画像のDB保存を探す
 3. 初期化処理(/initializeなど)がDBを作り直すか確認する。インデックスは初期化後も残るようDDLを置く場所を決める
